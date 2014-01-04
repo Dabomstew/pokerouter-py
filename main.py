@@ -1,1 +1,1 @@
-print 'eventually this will be something'
+print 'Kappa v1.0'
