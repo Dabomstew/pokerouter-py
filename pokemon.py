@@ -1,3 +1,5 @@
 class Pokemon(object):
-    def kappa(self, b):
-        print 'Kappa'
+    def learnMove(self, move):
+        raise NotImplementedError
+    def unlearnMove(self, move):
+        raise NotImplementedError

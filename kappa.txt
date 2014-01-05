@@ -1,5 +1,7 @@
 game red
-pokemon venusaur -level 100 -ivs 15/15/15/15 -sxp 65535/65535/65535/65535/65535
+pokemon squirtle -level 5 -ivs 0/0/0/0
 pokemon nidoranm -level 3 -ivs 0/0/0/0
-kappa
+use 2
+lm CUT
 brock
+um TACKLE

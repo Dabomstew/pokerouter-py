@@ -12,7 +12,8 @@ class Move:
         self.indexNum = m_indexNum
         
     def __repr__(self):
-        return "%s with %d PP, %d PWR, %d ACC, %d INUM" % (self.name, self.pp, self.power, self.accuracy, self.indexNum)
+        return self.name
+        #return "%s with %d PP, %d PWR, %d ACC, %d INUM" % (self.name, self.pp, self.power, self.accuracy, self.indexNum)
         
 class LevelMove:
     def __init__(self, level, move):

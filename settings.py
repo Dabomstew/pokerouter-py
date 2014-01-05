@@ -3,3 +3,4 @@ damageCalc = None
 initFunc = None
 generation = None
 aliasFunc = None
+moveDict = None

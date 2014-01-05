@@ -100,5 +100,13 @@ class PokemonGen1(Pokemon):
     def sxpCalc(self, statXP):
         return min(255, int(math.ceil(math.sqrt(statXP)))) / 4
     
+    def learnMove(self, move):
+        if move not in self.moves:
+            self.moves.append(move)
+    
+    def unlearnMove(self, move):
+        if move in self.moves:
+            self.moves.remove(move)
+    
     def __repr__(self):
-        return "%s LV%d stats %d/%d/%d/%d/%d" % (self.species.name, self.level, self.stats['hp'], self.stats['atk'], self.stats['def'], self.stats['spd'], self.stats['spc'])
+        return "%s LV%d stats %d/%d/%d/%d/%d moves %s" % (self.species.name, self.level, self.stats['hp'], self.stats['atk'], self.stats['def'], self.stats['spd'], self.stats['spc'], self.moves.__repr__())
