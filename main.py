@@ -1,1 +1,5 @@
-print 'Kappa v1.0'
+import routeparser
+
+rp = routeparser.RouteParser()
+
+rp.parseFile("./kappa.txt")

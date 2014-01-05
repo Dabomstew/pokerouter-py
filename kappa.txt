@@ -1,0 +1,4 @@
+game red
+pokemon bulbasaur -level 5 -ivs 0/0/0/0
+pokemon nidoranm -level 3 -ivs 0/0/0/0
+kappa
