@@ -5,7 +5,7 @@ import moveset
 import math
 
 class PokemonGen1(Pokemon):
-    def __init__(self, args, p_species = None):
+    def __init__(self, args, p_species=None):
         # args should be a list
         if p_species == None:
             # args[0] is species
@@ -39,7 +39,7 @@ class PokemonGen1(Pokemon):
             if current_arg == '-lvl' or current_arg == '-level':
                 if arg_index == len(args):
                     raise ValueError("Started an argument (level) but no value")
-                self.level = int(args[arg_index])
+                self.level = max(min(int(args[arg_index]),100),1)
                 arg_index += 1
                 self.calculateStats()
                 if defaultMoveset:
@@ -51,31 +51,31 @@ class PokemonGen1(Pokemon):
                 arg_index += 1
                 if len(ivs) != 4:
                     raise ValueError("Specified IVs but didn't provide 4")
-                self.ivs['atk'] = int(ivs[0])
-                self.ivs['def'] = int(ivs[1])
-                self.ivs['spd'] = int(ivs[2])
-                self.ivs['spc'] = int(ivs[3])
+                self.ivs['atk'] = max(min(int(ivs[0]),15),0)
+                self.ivs['def'] = max(min(int(ivs[1]),15),0)
+                self.ivs['spd'] = max(min(int(ivs[2]),15),0)
+                self.ivs['spc'] = max(min(int(ivs[3]),15),0)
                 self.recalcHPIV()
                 self.calculateStats()
-            elif current_arg == '-statxp':
+            elif current_arg == '-statxp' or current_arg == '-sxp':
                 if arg_index == len(args):
                     raise ValueError("Started an argument (Stat XP) but no value")
                 sxp = args[arg_index].split('/')
                 arg_index += 1
                 if len(sxp) != 5:
                     raise ValueError("Specified Stat XP but didn't provide 5 values")
-                self.statEXP['hp'] = int(sxp[0])
-                self.statEXP['atk'] = int(sxp[1])
-                self.statEXP['def'] = int(sxp[2])
-                self.statEXP['spd'] = int(sxp[3])
-                self.statEXP['spc'] = int(sxp[4])
+                self.statEXP['hp'] = max(min(int(sxp[0]),65535),0)
+                self.statEXP['atk'] = max(min(int(sxp[1]),65535),0)
+                self.statEXP['def'] = max(min(int(sxp[2]),65535),0)
+                self.statEXP['spd'] = max(min(int(sxp[3]),65535),0)
+                self.statEXP['spc'] = max(min(int(sxp[4]),65535),0)
                 self.updateUsedStatXP()
                 self.calculateStats()
             elif current_arg == '-wild':
                 self.wild = True
     
     def recalcHPIV(self):
-        self.ivs['hp'] = (self.ivs['atk']%2)*8 + (self.ivs['def']%2)*4 + (self.ivs['spd']%2)*2 + (self.ivs['spc']%2)
+        self.ivs['hp'] = (self.ivs['atk'] % 2) * 8 + (self.ivs['def'] % 2) * 4 + (self.ivs['spd'] % 2) * 2 + (self.ivs['spc'] % 2)
         
     def updateUsedStatXP(self):
         self.statEXPInUse['hp'] = self.statEXP['hp']
@@ -90,12 +90,15 @@ class PokemonGen1(Pokemon):
             
     def calculateStat(self, stat, base, iv, statXP):
         if stat == 'hp':
-            return self.calcStatNumerator(base, iv, statXP)*self.level/100 + self.level + 10
+            return self.calcStatNumerator(base, iv, statXP) * self.level / 100 + self.level + 10
         else:
-            return self.calcStatNumerator(base, iv, statXP)*self.level/100 + 5
+            return self.calcStatNumerator(base, iv, statXP) * self.level / 100 + 5
             
     def calcStatNumerator(self, base, iv, statXP):
-        return 2*(base+iv) + self.sxpCalc(statXP)
+        return 2 * (base + iv) + self.sxpCalc(statXP)
     
     def sxpCalc(self, statXP):
-        return min(255, int(math.ceil(math.sqrt(statXP))))/4
+        return min(255, int(math.ceil(math.sqrt(statXP)))) / 4
+    
+    def __repr__(self):
+        return "%s LV%d stats %d/%d/%d/%d/%d" % (self.species.name, self.level, self.stats['hp'], self.stats['atk'], self.stats['def'], self.stats['spd'], self.stats['spc'])
