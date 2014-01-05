@@ -48,12 +48,8 @@ def initMovesAndSets(gameid):
         initLearnsets('moveset_yellow.txt')
     else:
         initLearnsets('moveset_blue.txt')
-    
-    print moves
-    print learnsets
         
 def initLearnsets(filename):
-    print species.allSpecies
     f = open('./gen1/'+filename, 'r')
     learnsets.append([])
     f.readline() # useless pokemon count
